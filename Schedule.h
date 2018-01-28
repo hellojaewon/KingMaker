@@ -1,40 +1,24 @@
 #pragma once
 
-enum class EJob {
+#include <string>
+#include <vector>
+#include <memory>
+#include "KingParameter.h"
+
+enum class ECategory {
     ART,
     MILITARY,
     POLITICS,
     REST
 };
 
+
 // Interface
-class IJob {
+class ISchedule {
 public:
-    virtual EJob GetJobName () = 0;
-    virtual void DoJob () = 0;
+    virtual std::string GetId () = 0;
+    virtual ECategory GetCategory () = 0;
+    virtual bool DoSchedule (std::vector<ScheduleParam> & params) = 0;
 };
 
-class CArtEducation : public IJob {
-public:
-    EJob GetJobName () { return EJob::ART; }
-    void DoJob () {}
-};
-
-
-class CMilitaryEducation : public IJob {
-public:
-    EJob GetJobName () { return EJob::MILITARY; }
-    void DoJob () {}
-};
-
-class CPoliticsEducation : public IJob {
-public:
-    EJob GetJobName () { return EJob::POLITICS; }
-    void DoJob () {}
-};
-
-class CRest : public IJob {
-public:
-    EJob GetJobName () { return EJob::REST; }
-    void DoJob () {}
-};
+std::shared_ptr<ISchedule> GetSchedule (std::string scheduleId);

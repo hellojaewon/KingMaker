@@ -1,82 +1,17 @@
 #pragma once
 
-struct KingComprehension {
-    double paintingComprehension;
-    double musicComprehension;
-    double literatureComprehension;
-    double gourmetComprehension;
-    double swordsComprehension;
-    double blackMagicComprehension;
-    double whiteMagicComprehension;
-    double scienceComprehension;
-    double militaryComprehension;
-    double socialComprehension;
-    double economyComprehension;
-    double agricultureComprehension;
-    double diplomacyComprehension;
-    double historyComprehension;
-    double theologyComprehension;
-    double lawComprehension;
+#include <string>
+#include <vector>
+
+struct ScheduleParam {
+    std::string name;
+    double comprehension;
+    double successRate;
+    double riseRate;
+    double criticalSuccessRate;
 };
 
-struct KingComprehensionSuccessRate {
-    double paintingComprehensionSuccessRate;
-    double musicComprehensionSuccessRate;
-    double literatureComprehensionSuccessRate;
-    double gourmetComprehensionSuccessRate;
-    double swordsComprehensionSuccessRate;
-    double blackMagicComprehensionSuccessRate;
-    double whiteMagicComprehensionSuccessRate;
-    double scienceComprehensionSuccessRate;
-    double militaryComprehensionSuccessRate;
-    double socialComprehensionSuccessRate;
-    double economyComprehensionSuccessRate;
-    double agricultureComprehensionSuccessRate;
-    double diplomacyComprehensionSuccessRate;
-    double historyComprehensionSuccessRate;
-    double theologyComprehensionSuccessRate;
-    double lawComprehensionSuccessRate;
-};
-
-struct KingComprehensionRiseRate {
-    double paintingComprehensionRiseRate;
-    double musicComprehensionRiseRate;
-    double literatureComprehensionRiseRate;
-    double gourmetComprehensionRiseRate;
-    double swordsComprehensionRiseRate;
-    double blackMagicComprehensionRiseRate;
-    double whiteMagicComprehensionRiseRate;
-    double scienceComprehensionRiseRate;
-    double militaryComprehensionRiseRate;
-    double socialComprehensionRiseRate;
-    double economyComprehensionRiseRate;
-    double agricultureComprehensionRiseRate;
-    double diplomacyComprehensionRiseRate;
-    double historyComprehensionRiseRate;
-    double theologyComprehensionRiseRate;
-    double lawComprehensionRiseRate;
-};
-
-struct KingComprehensionCriticalRate {
-    double paintingComprehensionCriticalRate;
-    double musicComprehensionCriticalRate;
-    double literatureComprehensionCriticalRate;
-    double gourmetComprehensionCriticalRate;
-    double swordsComprehensionCriticalRate;
-    double blackMagicComprehensionCriticalRate;
-    double whiteMagicComprehensionCriticalRate;
-    double scienceComprehensionCriticalRate;
-    double militaryComprehensionCriticalRate;
-    double socialComprehensionCriticalRate;
-    double economyComprehensionCriticalRate;
-    double agricultureComprehensionCriticalRate;
-    double diplomacyComprehensionCriticalRate;
-    double historyComprehensionCriticalRate;
-    double theologyComprehensionCriticalRate;
-    double lawComprehensionCriticalRate;
-};
-
-struct KingComprehensionDevelopRate {
+struct DevelopRate {
     double commerceDevelopRate;
     double agricultureDevelopRate;
     double scienceDevelopRate;
@@ -129,9 +64,6 @@ struct KingParameter {
     ECondition condition;
     EHealthy healthy;
 
-    KingComprehension kingComprehension;
-    KingComprehensionSuccessRate kingComprehensionSuccessRate;
-    KingComprehensionRiseRate kingComPrehensionRiseRate;
-    KingComprehensionCriticalRate kingComprehensionCriticalRate;
-    KingComprehensionDevelopRate kingComprehensionDevelopRate;
+    std::vector<ScheduleParam> scheduleParams;
+    DevelopRate developRate;
 };
