@@ -3,7 +3,7 @@
 #include "Schedule.h"
 #include "KingMaker.h"
 
-KingParameter LoadKingParameter () {
+static KingParameter LoadKingParameter () {
     KingParameter params;
     return params;
 }

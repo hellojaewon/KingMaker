@@ -1,5 +1,7 @@
 #pragma once
 
+#include "KingParameter.h"
+
 class CKingMaker {
 public:
     CKingMaker (const KingParameter & params) : m_params(params) {}
