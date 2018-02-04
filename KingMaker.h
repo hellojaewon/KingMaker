@@ -1,6 +1,7 @@
 #pragma once
 
 #include "KingParameter.h"
+#include "Schedule.h"
 
 class CKingMaker {
 public:
@@ -14,6 +15,11 @@ public:
     void Shop () {}
 
 private:
+    void UpdateParameters (
+        std::shared_ptr<ISchedule> schedule,
+        EResult                    result
+    );
+
     KingParameter m_params;
 };
 

@@ -3,12 +3,70 @@
 #include <string>
 #include <vector>
 
+enum class ESchedule {
+    PAINTING,
+    MUSIC,
+    LITERATURE,
+    GOURMET,
+    SWORDS,
+    BLACKMAGIC,
+    WHITEMAGIC,
+    SCIENCE,
+    MILITARY,
+    SOCIAL,
+    ECONOMY,
+    AGRICULTURE,
+    DIPLOMACY,
+    HISTORY,
+    THEOLOGY,
+    LAW,
+    WALK,
+    SUBMISSION,
+    ARTVIEWING,
+    GAMEWATCHING,
+    TRAVELMOUNTAIN,
+    TRAVELSEA,
+};
+
+struct ScheduleSetting {
+    double stress;
+    double intellegence;
+    double politics;
+    double health;
+    double art;
+    double charm;
+    double dignity;
+    double character;
+    double charisma;
+    double faith;
+    double obesity;
+    double paintingComprehension;
+    double musicComprehension;
+    double literatureComprehension;
+    double gourmetComprehension;
+    double swordsComprehension;
+    double blackMagicComprehension;
+    double whiteMagicComprehension;
+    double scienceComprehension;
+    double militaryComprehension;
+    double socialComprehension;
+    double economyComprehension;
+    double agricultureComprehension;
+    double diplomacyComprehension;
+    double historyComprehension;
+    double theologyComprehension;
+    double lawComprehension;
+};
+
 struct ScheduleParam {
+    ESchedule schedule;
     std::string name;
     double comprehension;
     double successRate;
     double riseRate;
     double criticalSuccessRate;
+
+    ScheduleSetting scheduleSetting;
 };
 
 struct DevelopRate {
