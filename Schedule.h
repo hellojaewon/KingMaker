@@ -5,13 +5,6 @@
 #include <memory>
 #include "KingParameter.h"
 
-enum class ECategory {
-    ART,
-    MILITARY,
-    POLITICS,
-    REST
-};
-
 enum class EResult {
     SUCCESS,
     CRITICAL_SUCCESS,
@@ -21,21 +14,15 @@ enum class EResult {
 // Interface
 class ISchedule {
 public:
-    ISchedule (const ScheduleParam & param)
-     : m_successRate(param.successRate)
-     , m_criticalSuccessRate(param.criticalSuccessRate)
-    {}
-    virtual std::string GetId () = 0;
-    virtual ECategory GetCategory () = 0;
-    double GetSuccessRate () { return m_successRate; }
-    double GetCriticalSuccessRate () { return m_criticalSuccessRate; }
-    ScheduleSetting GetScheduleSetting () { return m_scheduleSetting; }
+    virtual ~ISchedule () {}
 
-protected:
-    double          m_successRate;
-    double          m_criticalSuccessRate;
-    ScheduleSetting m_scheduleSetting;
+    virtual EResult DoSchedule () const = 0;
+
+    virtual std::string GetId () const = 0;
+    virtual ECategory GetCategory () const = 0;
+    virtual double GetRiseRate () const = 0;
+    virtual const std::vector<ScheduleStat> & GetStats () const = 0;
 };
 
-void InitializeScheduleTable (std::vector<ScheduleParam> & schedule);
+void LoadSchedules ();
 std::shared_ptr<ISchedule> GetSchedule (std::string scheduleId);

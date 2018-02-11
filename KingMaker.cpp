@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include <random>
+#include <cmath>
 #include "KingMaker.h"
 #include "Schedule.h"
 
@@ -11,6 +11,19 @@ static void GetSchedules (std::vector<std::shared_ptr<ISchedule>> & schedules) {
     schedules.push_back(GetSchedule("RestWalk"));
     schedules.push_back(GetSchedule("EducationArtLiterature"));
     schedules.push_back(GetSchedule("EducationArtDelicacies"));
+}
+
+static std::string CategoryToStr (ECategory category) {
+    switch (category) {
+        case ECategory::ART:
+            return "Art";
+        case ECategory::MILITARY:
+            return "Military";
+        case ECategory::INTELLECTUAL:
+            return "Intellectual";
+        case ECategory::REST:
+            return "Rest";
+    }
 }
 
 static std::string ResultToStr (EResult result) {
@@ -24,23 +37,6 @@ static std::string ResultToStr (EResult result) {
     }
 }
 
-static EResult CalculateScheduleResult (std::shared_ptr<ISchedule> schedule) {
-    EResult result{EResult::FAIL};
-
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1,10000);
-
-    if (schedule->GetSuccessRate() > dis(gen)) {
-        if (schedule->GetCriticalSuccessRate() > dis(gen))
-            result = EResult::CRITICAL_SUCCESS;
-        else
-            result = EResult::SUCCESS;
-    }
-
-    return result;
-}
-
 void CKingMaker::Schedule () {
     std::vector<std::shared_ptr<ISchedule>> schedules;
     GetSchedules(schedules);
@@ -49,13 +45,14 @@ void CKingMaker::Schedule () {
     std::cout<<"Scheduling...\n";
     for (auto schedule : schedules) {
         for (unsigned i = 0; i < 7; i++) {
-            EResult result = CalculateScheduleResult(schedule);
+            EResult result = schedule->DoSchedule();
             UpdateParameters(schedule, result);
 
-            std::cout<<"Day of "<<i+1<<"...";
-            std::cout<<"Id : "<<schedule->GetId()<<",";
-            std::cout<<"Category : "<<int(schedule->GetCategory())<<",";
-            std::cout<<"Result : "<<ResultToStr(result)<<"\n";
+            std::cout<<"Day of "<<i+1<<"..., ";
+            std::cout<<"Id: "<<schedule->GetId()<<", ";
+            std::cout<<"Category: "<<CategoryToStr(schedule->GetCategory())<<", ";
+            std::cout<<"Result: "<<ResultToStr(result)<<"\n";
+            DebugDisplay(m_params.stats);
         }
     }
 }
@@ -67,10 +64,21 @@ void CKingMaker::UpdateParameters (
     if (result == EResult::FAIL)
         return;
 
-    if (result == EResult::SUCCESS) {
+    unsigned riseFactor = 1;
+    if (result == EResult::CRITICAL_SUCCESS)
+        riseFactor = 2;
 
-    } else {
-
+    auto stats = schedule->GetStats();
+    for (auto & stat : stats) {
+        double delta = 0;
+        if (stat.value < 0) {
+            delta = stat.value;
+        } else {
+            delta = std::round(stat.value * (1+schedule->GetRiseRate()/1000) * riseFactor);
+        }
+        auto found = m_params.stats.find(stat.name);
+        assert(found != m_params.stats.end());
+        found->second += delta;
     }
 }
 

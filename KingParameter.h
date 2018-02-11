@@ -2,6 +2,14 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
+
+enum class ECategory {
+    ART,
+    MILITARY,
+    INTELLECTUAL,
+    REST
+};
 
 enum class ESchedule {
     PAINTING,
@@ -28,45 +36,19 @@ enum class ESchedule {
     TRAVELSEA,
 };
 
-struct ScheduleSetting {
-    double stress;
-    double intellegence;
-    double politics;
-    double health;
-    double art;
-    double charm;
-    double dignity;
-    double character;
-    double charisma;
-    double faith;
-    double obesity;
-    double paintingComprehension;
-    double musicComprehension;
-    double literatureComprehension;
-    double gourmetComprehension;
-    double swordsComprehension;
-    double blackMagicComprehension;
-    double whiteMagicComprehension;
-    double scienceComprehension;
-    double militaryComprehension;
-    double socialComprehension;
-    double economyComprehension;
-    double agricultureComprehension;
-    double diplomacyComprehension;
-    double historyComprehension;
-    double theologyComprehension;
-    double lawComprehension;
+struct ScheduleStat {
+    std::string name;
+    double value;
 };
 
 struct ScheduleParam {
+    std::string id;
+    ECategory category;
     ESchedule schedule;
-    std::string name;
-    double comprehension;
     double successRate;
     double riseRate;
     double criticalSuccessRate;
-
-    ScheduleSetting scheduleSetting;
+    std::vector<ScheduleStat> stats;
 };
 
 struct DevelopRate {
@@ -104,24 +86,17 @@ enum class EHealthy {
     HEALTHY4,
 };
 
+using StatTable = std::unordered_map<std::string, double>;
+
 struct KingParameter {
-    double intelligence;
-    double politics;
-    double strength;
-    double charm;
-    double art;
-    double dignity;
-    double personality;
-    double faith;
-    double charisma;
-    double stress;
     unsigned age;
-    char birthday[4 + 1];   // yymm
+    char birthday[4 + 1];   // mmdd
     EBody body;
-    double obesity;
     ECondition condition;
     EHealthy healthy;
 
-    std::vector<ScheduleParam> scheduleParams;
+    StatTable stats;
     DevelopRate developRate;
 };
+
+void DebugDisplay (const StatTable & stats);

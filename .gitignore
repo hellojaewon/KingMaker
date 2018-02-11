@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# ctags
+tags
+
+# binary
+KingMaker
