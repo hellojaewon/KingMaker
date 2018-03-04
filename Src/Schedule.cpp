@@ -4,6 +4,7 @@
 #include <random>
 #include "Schedule.h"
 
+//=============================================================================
 class CSchedule : public ISchedule {
 public:
     CSchedule (const ScheduleParam & param)
@@ -16,7 +17,7 @@ public:
     {}
 
     // ISchedule Interface
-    EResult DoSchedule () const override;
+    EScheduleResult DoSchedule () const override;
     std::string GetId () const override { return m_id; }
     ECategory GetCategory () const override { return m_catetory; }
     double GetRiseRate () const override { return m_riseRate; }
@@ -31,8 +32,9 @@ private:
     std::vector<ScheduleStat> m_stats;
 };
 
-EResult CSchedule::DoSchedule () const {
-    EResult result{EResult::FAIL};
+//=============================================================================
+EScheduleResult CSchedule::DoSchedule () const {
+    EScheduleResult result{EScheduleResult::FAIL};
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -40,14 +42,15 @@ EResult CSchedule::DoSchedule () const {
 
     if (m_successRate > dis(gen)) {
         if (m_criticalSuccessRate > dis(gen))
-            result = EResult::CRITICAL_SUCCESS;
+            result = EScheduleResult::CRITICAL_SUCCESS;
         else
-            result = EResult::SUCCESS;
+            result = EScheduleResult::SUCCESS;
     }
 
     return result;
 }
 
+//=============================================================================
 static bool s_initialized = false;
 static std::unordered_map<std::string, std::shared_ptr<ISchedule>> s_table;
 
@@ -105,6 +108,7 @@ static std::vector<std::string> s_scheduleStatNames = {
     "LawComprehension"
 };
 
+//=============================================================================
 static std::vector<ScheduleStat> Setting (unsigned index) {
     std::vector<ScheduleStat> stats;
 
@@ -121,6 +125,7 @@ static std::vector<ScheduleStat> Setting (unsigned index) {
     return stats;
 }
 
+//=============================================================================
 void LoadSchedules () {
     if (s_initialized)
         return;
@@ -156,6 +161,7 @@ void LoadSchedules () {
     s_initialized = true;
 }
 
+//=============================================================================
 std::shared_ptr<ISchedule> GetSchedule (std::string scheduleId) {
     auto it = s_table.find(scheduleId);
     if (it != s_table.end())

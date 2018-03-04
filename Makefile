@@ -13,10 +13,11 @@ CXXFALGS = -std=c++14 -ggdb3 -Wpedantic -Wall -Wextra \
 
 # The executable sources and target
 #
-INCLUDES = -I.
-SRCS = Main.cpp \
-    KingMaker.cpp \
-    Schedule.cpp
+INCLUDES = -I./Include
+SRCS = Src/KingMaker.cpp \
+    Src/Schedule.cpp \
+    Src/Liege.cpp \
+    Test/KingMakerTest.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -38,7 +39,7 @@ $(MAIN): $(OBJS)
 	$(CXX) $(CXXFALGS) $(INCLUDES) -c $<  -o $@
 
 clean:
-	$(RM) *.o *~ $(MAIN)
+	$(RM) Src/*.o Test/*.o *~ $(MAIN)
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^

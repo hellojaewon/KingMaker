@@ -36,10 +36,12 @@ enum class ESchedule {
     TRAVELSEA,
 };
 
-struct ScheduleStat {
+struct Stat {
     std::string name;
     double value;
 };
+
+using ScheduleStat = Stat;
 
 struct ScheduleParam {
     std::string id;
@@ -49,19 +51,6 @@ struct ScheduleParam {
     double riseRate;
     double criticalSuccessRate;
     std::vector<ScheduleStat> stats;
-};
-
-struct DevelopRate {
-    double commerceDevelopRate;
-    double agricultureDevelopRate;
-    double scienceDevelopRate;
-    double cultureDevelopRate;
-    double magicDevelopRate;
-    double militaryDevelopRate;
-    double educationDevelopRate;
-    double approvalBonusRate;
-    double faithDevelopRate;
-    double stateCoffersRate;
 };
 
 enum class EBody {
@@ -87,6 +76,7 @@ enum class EHealthy {
 };
 
 using StatTable = std::unordered_map<std::string, double>;
+using DevelopTable = std::unordered_map<std::string, double>;
 
 struct KingParameter {
     unsigned age;
@@ -95,8 +85,9 @@ struct KingParameter {
     ECondition condition;
     EHealthy healthy;
 
-    StatTable stats;
-    DevelopRate developRate;
+    StatTable kingStats;
+    StatTable countryStats;
+    DevelopTable developRates;
 };
 
 void DebugDisplay (const StatTable & stats);
