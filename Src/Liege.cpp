@@ -135,33 +135,34 @@ struct EnumClassHash {
 static bool s_initialized = false;
 static std::vector<std::shared_ptr<ILiege>> s_lieges;
 static std::unordered_map<ELiegeStatType, std::vector<Stat>, EnumClassHash> s_table;
-static std::vector<std::vector<double>> s_settings = {
-    { 1,0,0,0,0,0,0,0,0,0 },
-    { 0,1,0,0,0,0,0,0,0,0 },
-    { 0,0,1,0,0,0,0,0,0,0 },
-    { 0,0,0,1,0,0,0,0,0,0 },
-    { 0,0,0,0,1,0,0,0,0,0 },
-    { 0,0,0,0,0,1,0,0,0,0 },
-    { 0,0,0,0,0,0,1,0,0,0 },
-    { 0,0,0,0,0,0,0,0,-1,2 },
-    { 0,0,0,0,0,0,0,1,0,0 },
-};
-
-static std::vector<std::string> s_statNames = {
-    "commerce",
-    "agriculture",
-    "science",
-    "culture",
-    "magic",
-    "military",
-    "education",
-    "faith",
-    "approvalRating",
-    "stateCoffers",
-};
 
 //=============================================================================
 static std::vector<Stat> Setting (unsigned index) {
+    static std::vector<std::vector<double>> s_settings = {
+        { 1,0,0,0,0,0,0,0,0,0 },
+        { 0,1,0,0,0,0,0,0,0,0 },
+        { 0,0,1,0,0,0,0,0,0,0 },
+        { 0,0,0,1,0,0,0,0,0,0 },
+        { 0,0,0,0,1,0,0,0,0,0 },
+        { 0,0,0,0,0,1,0,0,0,0 },
+        { 0,0,0,0,0,0,1,0,0,0 },
+        { 0,0,0,0,0,0,0,0,-1,2 },
+        { 0,0,0,0,0,0,0,1,0,0 },
+    };
+
+    static std::vector<std::string> s_statNames = {
+        "commerce",
+        "agriculture",
+        "science",
+        "culture",
+        "magic",
+        "military",
+        "education",
+        "faith",
+        "approvalRating",
+        "stateCoffers",
+    };
+
     std::vector<Stat> stats;
 
     auto row = s_settings[index];

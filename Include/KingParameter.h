@@ -89,5 +89,3 @@ struct KingParameter {
     StatTable countryStats;
     DevelopTable developRates;
 };
-
-void DebugDisplay (const StatTable & stats);

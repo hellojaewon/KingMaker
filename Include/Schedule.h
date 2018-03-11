@@ -5,12 +5,14 @@
 #include <memory>
 #include "KingParameter.h"
 
+//=============================================================================
 enum class EScheduleResult {
     SUCCESS,
     CRITICAL_SUCCESS,
     FAIL
 };
 
+//=============================================================================
 class ISchedule {
 public:
     virtual ~ISchedule () {}
@@ -23,6 +25,7 @@ public:
     virtual const std::vector<ScheduleStat> & GetStats () const = 0;
 };
 
+//=============================================================================
 class IScheduleNotify {
 public:
     virtual void OnScheduleCompleted (
@@ -31,5 +34,6 @@ public:
     ) = 0;
 };
 
+//=============================================================================
 void LoadSchedules ();
 std::shared_ptr<ISchedule> GetSchedule (std::string scheduleId);

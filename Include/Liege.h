@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+//=============================================================================
 enum class EGrade {
     NORMAL,
     RARE,
@@ -11,6 +12,7 @@ enum class EGrade {
     LEGEND
 };
 
+//=============================================================================
 enum class ELiegeStatType {
     COMMERCE_DEVELOP,
     AGRICULTURE_DEVELOP,
@@ -23,6 +25,7 @@ enum class ELiegeStatType {
     PROPOGATION
 };
 
+//=============================================================================
 enum class ELiegeResult {
     SUCCESS,
     GREAT_SUCCESS,
@@ -30,11 +33,13 @@ enum class ELiegeResult {
     MONEY_EVASION,
 };
 
+//=============================================================================
 struct LiegeStat {
     ELiegeStatType type;
     double         value;
 };
 
+//=============================================================================
 class ILiege {
 public:
     virtual ~ILiege () {}
@@ -51,6 +56,7 @@ public:
     virtual unsigned GetSelfishness () const = 0;
 };
 
+//=============================================================================
 class ILiegeNotify {
 public:
     virtual void OnLiegeMeetingCompleted (
@@ -59,6 +65,7 @@ public:
     ) = 0;
 };
 
+//=============================================================================
 void LoadLieges ();
 void CreateLiege (
     std::string name,
